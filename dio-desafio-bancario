@@ -1,0 +1,73 @@
+#Desafio DIO - Criando um sistemas bancário
+
+#Variáveis
+
+menu= """
+
+Caro usuário Informe uma das opções disponíveis para acessar o Banco XXX:
+[1]Depositar
+[2] Sacar
+[3] Extrato
+[4] Sair
+
+"""
+
+saldo= 0
+extrato= "" 
+numLimiteSaque = 0
+qtdLimiteSaque= 3
+valorLimiteSaque= 500
+
+#Inicialização do Sistema 
+
+while True:
+
+    opcao = input(menu)
+
+    if opcao == "1":
+        valorConta = float (input("informe o valor do depósito:"))
+
+        if valorConta >0:
+             saldo += valorConta
+             extrato += f"Depósito: R${valorConta:.2f}\n"
+
+        else:
+             print("Falha na operação!Tente novamente apresentando um valor válido.")
+
+    elif opcao == "2":
+
+        valorConta = float (input("Informe a quantia que deseja sacar:"))
+        
+        excedeuSaldo = valorConta > saldo
+        excedeuLimite = valorConta >= valorLimiteSaque
+        excedeuSaque = numLimiteSaque >= qtdLimiteSaque
+        
+        if excedeuSaldo:
+             print("Operação não realizada! Saldo insuficiente na conta.")
+        elif excedeuLimite:
+             print("Operação não realizada! O saque excede o limite disponível para saldo.")
+        elif excedeuSaque:
+             print("Operação não realizada! O saque excede o limite disponível para saldo.")
+      
+        elif valorConta >0:
+             saldo -= valorConta
+             extrato +="Saque: R${valorConta:.2f}\n"
+             numLimiteSaque +=1
+      
+        else:
+             print("Falha na operação!Tente novamente apresentando um valor válido.")
+            
+
+    elif opcao == "3":
+      
+        print("Exibindo o extrato ...")
+        print("Não foram realizadas movimentações no período." if not extrato else extrato)
+        print(f"\n saldo: R${saldo:.2f}")
+        print("Fim do extrato.")
+
+    elif opcao == "4":
+        print("Obrigado por usar o sistema bancário, o Banco XXX agradece a preferência.")
+        break
+  
+    else:
+       print("Operação inválida - else final")
